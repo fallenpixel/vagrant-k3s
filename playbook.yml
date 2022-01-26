@@ -1,0 +1,19 @@
+---
+- hosts: all
+  roles:
+    - fallenpixel.k3scommon
+  environment:
+    K3S_URL: "{{ k3s_url }}"
+- hosts: server
+  tasks:
+    - name: Apply Server role
+      include_role:
+        name: fallenpixel.k3sserver
+  environment:
+- hosts: agent
+  tasks:
+    - name: Apply Agent role
+      include_role:
+        name: fallenpixel.k3sagent
+  environment:
+    K3S_URL: "{{ k3s_url }}"
